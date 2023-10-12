@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="net.devcats.recordtracker.ColorPickerController">
+  <center>
+    <HBox alignment="CENTER" spacing="15.0">
+      <VBox fx:id="backgroundColorPickerContainer">
+        <Label text="Background Color"/>
+
+      </VBox>
+
+      <VBox fx:id="textColorPickerContainer">
+        <Label text="Text Color"/>
+
+      </VBox>
+    </HBox>
+  </center>
+</BorderPane>

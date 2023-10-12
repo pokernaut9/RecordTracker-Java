@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.geometry.Insets?>
+
+<?import javafx.scene.control.Label?>
+<BorderPane fx:id="root" xmlns:fx="http://javafx.com/fxml" fx:controller="net.devcats.recordtracker.RecordTrackerController">
+  <top>
+    <VBox spacing="15.0">
+      <padding>
+        <Insets left="2.0" top="2.0" />
+      </padding>
+      <ImageView fx:id="imgClose">
+        <Image url="@close.png" />
+        <preserveRatio>true</preserveRatio>
+        <fitWidth>15.0</fitWidth>
+        <fitHeight>15.0</fitHeight>
+      </ImageView>
+    </VBox>
+  </top>
+
+  <center>
+    <HBox alignment="CENTER" spacing="15.0">
+      <padding>
+        <Insets left="-20.0" top="-20.0" />
+      </padding>
+      <Label fx:id="lblWins" />
+      <Label fx:id="lblLosses"/>
+      <Label fx:id="lblDraws"/>
+      <Label fx:id="lblRank"/>
+    </HBox>
+  </center>
+
+  <left>
+    <VBox alignment="BOTTOM_LEFT" spacing="15.0">
+      <padding>
+        <Insets left="2.0" bottom="2.0" />
+      </padding>
+      <ImageView fx:id="imgColorPicker">
+        <Image url="@color-picker.png" />
+        <preserveRatio>true</preserveRatio>
+        <fitWidth>15.0</fitWidth>
+        <fitHeight>15.0</fitHeight>
+      </ImageView>
+    </VBox>
+  </left>
+</BorderPane>
