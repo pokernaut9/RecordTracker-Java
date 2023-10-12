@@ -238,7 +238,7 @@ public class RecordTrackerController {
 
         if (colorModel.getBackgroundColor().getOpacity() == 0.0) { // leaving opacity at 0.0 causes wierd mouse dragging interaction
             String colorString = colorModel.getBackgroundColor().toString();
-            String updatedColorString = colorString.substring(0, colorString.length() - 2) + "11";
+            String updatedColorString = colorString.substring(0, colorString.length() - 2) + "01";
             colorModel.setBackgroundColor(Color.valueOf(updatedColorString));
         }
         root.setBackground(new Background(new BackgroundFill(colorModel.getBackgroundColor(), null, null)));
