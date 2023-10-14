@@ -97,6 +97,7 @@ public class RecordTrackerController {
                     case "lblDraws" -> draws = Math.max(0, draws - 1);
                 }
             }
+            updateAndSave();
         });
     }
 
