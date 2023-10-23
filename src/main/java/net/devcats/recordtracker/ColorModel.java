@@ -5,6 +5,7 @@ import javafx.scene.paint.Color;
 public class ColorModel {
     private Color backgroundColor;
     private Color textColor;
+    private boolean showRank;
 
     public ColorModel() { }
 
@@ -22,5 +23,13 @@ public class ColorModel {
 
     public void setTextColor(Color textColor) {
         this.textColor = textColor;
+    }
+
+    public boolean isShowRank() {
+        return showRank;
+    }
+
+    public void setShowRank(boolean showRank) {
+        this.showRank = showRank;
     }
 }

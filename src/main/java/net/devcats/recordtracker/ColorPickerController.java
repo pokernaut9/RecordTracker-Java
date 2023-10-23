@@ -1,6 +1,7 @@
 package net.devcats.recordtracker;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.layout.VBox;
 
@@ -10,6 +11,8 @@ public class ColorPickerController {
     private VBox backgroundColorPickerContainer;
     @FXML
     private VBox textColorPickerContainer;
+    @FXML
+    private CheckBox chkShowRank;
 
     private ColorModel colorModel;
     private ColorPicker backgroundColorPicker;
@@ -23,12 +26,15 @@ public class ColorPickerController {
         textColorPicker = new ColorPicker();
         textColorPicker.setOnAction(actionEvent -> colorModel.setTextColor(textColorPicker.getValue()));
         textColorPickerContainer.getChildren().addAll(textColorPicker);
+
+        chkShowRank.setOnAction(actionEvent -> colorModel.setShowRank(chkShowRank.isSelected()));
     }
 
     public void setColorModel(ColorModel colorModel) {
         this.colorModel = colorModel;
         backgroundColorPicker.setValue(colorModel.getBackgroundColor());
         textColorPicker.setValue(colorModel.getTextColor());
+        chkShowRank.setSelected(colorModel.isShowRank());
     }
 
     public ColorModel getColorModel() {

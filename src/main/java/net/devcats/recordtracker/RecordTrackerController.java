@@ -46,7 +46,10 @@ public class RecordTrackerController {
     private ColorModel colorModel;
 
     public void initialize() {
+        colorModel = new ColorModel();
+
         readTextFile();
+        updateAndSave();
 
         setupLabel(lblWins);
         setupLabel(lblLosses);
@@ -118,9 +121,25 @@ public class RecordTrackerController {
             lblWins.setText("Wins: " + wins);
             lblLosses.setText("Losses: " + losses);
             lblDraws.setText("Draws: " + draws);
-            lblRank.setText(rank);
 
-            setRankColor();
+            if (colorModel.getBackgroundColor().getOpacity() == 0.0) { // leaving opacity at 0.0 causes wierd mouse dragging interaction
+                String colorString = colorModel.getBackgroundColor().toString();
+                String updatedColorString = colorString.substring(0, colorString.length() - 2) + "01";
+                colorModel.setBackgroundColor(Color.valueOf(updatedColorString));
+            }
+            root.setBackground(new Background(new BackgroundFill(colorModel.getBackgroundColor(), null, null)));
+
+            lblWins.setTextFill(colorModel.getTextColor());
+            lblLosses.setTextFill(colorModel.getTextColor());
+            lblDraws.setTextFill(colorModel.getTextColor());
+
+            if (colorModel.isShowRank()) {
+                lblRank.setVisible(true);
+                lblRank.setText(rank);
+                setRankColor();
+            } else {
+                lblRank.setVisible(false);
+            }
 
             ObjectMapper objectMapper = new ObjectMapper();
             ObjectNode jsonObject = objectMapper.createObjectNode();
@@ -128,6 +147,7 @@ public class RecordTrackerController {
             jsonObject.put("losses", losses);
             jsonObject.put("draws", draws);
             jsonObject.put("rank", rank);
+            jsonObject.put("showRank", colorModel.isShowRank());
             jsonObject.put("backgroundColor", colorModel.getBackgroundColor().toString());
             jsonObject.put("textColor", colorModel.getTextColor().toString());
 
@@ -162,11 +182,9 @@ public class RecordTrackerController {
                 draws = jsonNode.get("draws").asInt();
                 rank = jsonNode.get("rank").asText();
 
-                if (colorModel == null) colorModel = new ColorModel();
+                colorModel.setShowRank(jsonNode.get("showRank").asBoolean());
                 colorModel.setBackgroundColor(Color.valueOf(jsonNode.get("backgroundColor").asText()));
                 colorModel.setTextColor(Color.valueOf(jsonNode.get("textColor").asText()));
-
-                setColorModel(colorModel);
 
                 reader.close();
             } else {
@@ -219,35 +237,18 @@ public class RecordTrackerController {
             ColorPickerController colorPickerController = fxmlLoader.getController();
             colorPickerController.setColorModel(colorModel);
 
-            Scene colorPickerScene = new Scene(colorPickerRoot, 300, 50);
+            Scene colorPickerScene = new Scene(colorPickerRoot, 300, 100);
 
             // Set the Stage
             Stage colorPickerStage = new Stage();
             colorPickerStage.setScene(colorPickerScene);
             colorPickerStage.initStyle(StageStyle.UTILITY); // Choose the stage style you prefer
             colorPickerStage.setTitle("Color Picker");
-            colorPickerStage.setOnCloseRequest(windowEvent -> setColorModel(colorPickerController.getColorModel()));
+            colorPickerStage.setOnCloseRequest(windowEvent -> updateAndSave());
             // Show the color picker stage
             colorPickerStage.show();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public void setColorModel(ColorModel colorModel) {
-        this.colorModel = colorModel;
-
-        if (colorModel.getBackgroundColor().getOpacity() == 0.0) { // leaving opacity at 0.0 causes wierd mouse dragging interaction
-            String colorString = colorModel.getBackgroundColor().toString();
-            String updatedColorString = colorString.substring(0, colorString.length() - 2) + "01";
-            colorModel.setBackgroundColor(Color.valueOf(updatedColorString));
-        }
-        root.setBackground(new Background(new BackgroundFill(colorModel.getBackgroundColor(), null, null)));
-
-        lblWins.setTextFill(colorModel.getTextColor());
-        lblLosses.setTextFill(colorModel.getTextColor());
-        lblDraws.setTextFill(colorModel.getTextColor());
-
-        updateAndSave();
     }
 }

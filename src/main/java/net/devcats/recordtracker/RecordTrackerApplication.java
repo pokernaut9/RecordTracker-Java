@@ -32,14 +32,14 @@ public class RecordTrackerApplication extends Application {
             stage.setY(mouseEvent.getScreenY() + yOffset);
         });
 
-        stage.initStyle(StageStyle.TRANSPARENT);
+//        stage.initStyle(StageStyle.TRANSPARENT);
         stage.setTitle("Record Tracker");
         stage.setScene(scene);
 
-        Rectangle rect = new Rectangle(525,65);
-        rect.setArcHeight(10.0);
-        rect.setArcWidth(10.0);
-        scene.getRoot().setClip(rect);
+//        Rectangle rect = new Rectangle(525,65);
+//        rect.setArcHeight(10.0);
+//        rect.setArcWidth(10.0);
+//        scene.getRoot().setClip(rect);
 
         stage.show();
     }
